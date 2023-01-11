@@ -11,6 +11,10 @@ ENV PYTHONUNBUFFERED 1
 RUN pip install --upgrade pip
 
 COPY . $DockerHOME
+
+# TODO: don't do it like that, figure it out
+RUN chmod -R 777 $DockerHOME
+
 RUN pip install -r ./friends/requirements.txt
 
 EXPOSE 8000

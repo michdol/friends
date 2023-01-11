@@ -1,0 +1,11 @@
+# Build and run containers
+docker-compose up -d --build
+
+# Enter web container
+docker ps -a
+# Get id of web container
+docker exec -it [container-id]
+
+cd friends
+python manage.py migrate
+python manage.py runserver 0.0.0.0:8000

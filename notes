@@ -12,3 +12,7 @@ docker exec -it [container-id]
 cd friends
 python manage.py migrate
 python manage.py runserver 0.0.0.0:8000
+
+# Can't save file due to permissions
+# For example when created app with python manage.py startapp newapp
+chmod -r 777 newapp

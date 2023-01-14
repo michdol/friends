@@ -2,7 +2,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from django.views.generic import DetailView
+from django.views.generic import DetailView, TemplateView
 from django.views.generic.edit import FormView
 
 from users.forms import CreateUserForm, LoginForm
@@ -23,21 +23,22 @@ class LoginView(FormView):
     form_class = LoginForm
     success_url = 'users:profile'
 
-    def get(request, *args, **kwargs):
-        return super().get(request, *args, **kwargs)
-
-    def post(request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)
-
     def form_valid(self, form):
         username = form.cleaned_data['username']
         password = form.cleaned_data['password']
+        print("username", username)
+        print("password", password)
         user = authenticate(self.request, username=username, password=password)
+        print("user", user)
         if user:
             login(self.request, user)
             return HttpResponseRedirect(reverse(self.success_url))
         else:
             return self.get(self.request)
+
+
+class Profile(TemplateView):
+    template_name = 'users/profile.html'
 
 
 def logout_view(request):

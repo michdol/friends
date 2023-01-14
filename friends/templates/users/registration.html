@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
+
+{% if form.errors %}
+<div>
+	{{ form.errors }}
+</div>
+{% endif %}
+
 <form method="post" action="{% url 'users:signup' %}">
 	{% csrf_token %}
 	<div>
@@ -19,7 +26,7 @@
 		<td>{{ form.password2 }}</td>
 	</div>
 	<div>
-		<input type="submit" value="login" />
+		<input type="submit" value="signup" />
 		<input type="hidden" name="next" value="{{ next }}" />
 	</div>
 </form>
